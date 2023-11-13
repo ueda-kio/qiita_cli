@@ -7,7 +7,7 @@ tags:
   - 業務改善
   - 業務効率化
 private: true
-updated_at: '2023-11-09T15:27:00+09:00'
+updated_at: '2023-11-13T17:08:50+09:00'
 id: bfc41536bd211fbc6eb8
 organization_url_name: null
 slide: false
@@ -551,12 +551,12 @@ https://www.raycast.com/raycast/browser-bookmarks
 
 Raycastには標準でクリップボードヒストリー機能が搭載されています。この機能のために [Clipy](https://github.com/Clipy/Clipy) というアプリケーションを導入している方も多いかと思いますが、**乗り換え推奨** です。
 
-Clipyではできない、検索（filter）機能やサムネイル機能が本当に素晴らしいです。
+Clipyではできない、検索（filter）機能やサムネイル機能が本当にすばらしいです。
 
 ▼ 検索機能がすばらしい。
 ![クリップボードヒストリーの検索機能](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/4771b3ae-05af-11fe-6770-288979702931.png)
 
-▼ サムネイル機能。特にコピーした画像を表示してくれるのが素晴らし過ぎる。`cmd + shift + ctrl + 4`との相性最高。
+▼ サムネイル機能。特にコピーした画像を表示してくれるのがすばらしすぎる。`cmd + shift + ctrl + 4`との相性最高。
 ![クリップボードヒストリーのサムネイル機能](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/4a8e7d31-75d1-e4d3-3801-fa00e3daf6d2.png)
 
 ### 2.5. Quicklinks
