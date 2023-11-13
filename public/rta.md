@@ -16,6 +16,11 @@ ignorePublish: false
 # はじめに
 この記事は [NIJIBOX Advent Calendar 2023](https://qiita.com/advent-calendar/2023/nijibox) の1日目の記事です🌈
 
+:::note warn
+**本記事の内容は、あくまでも私の個人的な経験から得たオススメのやり方をまとめたものになります。**
+:::
+
+
 どうも。業務RTA走者の@ment_REです。
 普段は「Any%」「No Glitch」「休憩1時間を必ず取る」レギュレーションで走ってます。寒い時期は朝布団から出てタイマースタートするまでが一番の難所だと思ってます[^1]。
 
@@ -444,7 +449,7 @@ https://qiita.com/naru0504/items/99495c4482cd158ddca8
 
 https://www.raycast.com/
 
-とはいえRaycastに関する素晴らしい記事はすでにあらゆるところでまとめられているので、詳しい使い方やインストール方法については本記事よりもそれらを参照したほうがよいと思います。
+とはいえRaycastに関する参考になる記事はすでにあらゆるところでまとめられているので、詳しい使い方やインストール方法については本記事よりもそれらを参照したほうがよいと思います。
 
 https://qiita.com/mtaku29/items/31ec3b0ac48ab35d8a80
 
@@ -474,7 +479,7 @@ https://zenn.dev/fumi_sagawa/articles/2ff5fd9c03fbcd
 <td><strong>クリップボードヒストリー</strong></td>
 <td>
 
-[Clipy](https://github.com/Clipy/Clipy) ユーザーは乗り換え推奨。検索（filter）機能とサムネイル機能がすばらしい。**まごうことなき神機能**。
+検索（filter）機能とサムネイル機能がすばらしい。**まごうことなき神機能**。
 
 </td>
 </tr>
@@ -573,6 +578,8 @@ Google検索、Google画像検索、YouTube、[CanIUse](https://caniuse.com/)、
 
 業務RTA自己べスト更新狙っていきましょう🏃💨
 
-![ありがとうございました](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/7b513e34-93f3-d5a2-3b84-0bcb8516bca8.png)
+<!-- ![ありがとうございました](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/7b513e34-93f3-d5a2-3b84-0bcb8516bca8.png) -->
+
+![ありがとうございました](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/3b87b25e-9ab0-e2ba-0810-03119b57053c.png)
 
 [^1]: もちろん「業務RTA」とは茶番です。そんな概念はありません。
