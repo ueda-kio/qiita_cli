@@ -7,7 +7,7 @@ tags:
   - 業務改善
   - 業務効率化
 private: true
-updated_at: '2023-11-13T17:11:07+09:00'
+updated_at: '2023-11-14T10:04:19+09:00'
 id: bfc41536bd211fbc6eb8
 organization_url_name: null
 slide: false
