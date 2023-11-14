@@ -7,7 +7,7 @@ tags:
   - 業務改善
   - 業務効率化
 private: true
-updated_at: '2023-11-14T10:08:12+09:00'
+updated_at: '2023-11-14T12:41:16+09:00'
 id: bfc41536bd211fbc6eb8
 organization_url_name: null
 slide: false
@@ -18,9 +18,6 @@ ignorePublish: false
 :::
 
 # はじめに
-この記事は [NIJIBOX Advent Calendar 2023](https://qiita.com/advent-calendar/2023/nijibox) の1日目の記事です🌈
-
-
 どうも。業務RTA走者の@ment_REです。
 普段は「Any%」「No Glitch」「休憩1時間を必ず取る」レギュレーションで走ってます。寒い時期は朝布団から出てタイマースタートするまでが一番の難所だと思ってます[^1]。
 
@@ -114,10 +111,10 @@ ignorePublish: false
 <td>矢印キー</td>
 <td>
 
-- 上: `P`
-- 下: `N`
-- 左: `B`
-- 右: `F`
+- 上: `ctrl + P`
+- 下: `ctrl + N`
+- 左: `ctrl + B`
+- 右: `ctrl + F`
 
 </td>
 </tr>
@@ -125,8 +122,8 @@ ignorePublish: false
 <td>削除</td>
 <td>
 
-- backspace: `H`
-- delete: `D`
+- backspace: `ctrl + H`
+- delete: `ctrl + D`
 
 </td>
 </tr>
@@ -134,7 +131,7 @@ ignorePublish: false
 <td>カタカナ変換</td>
 <td>
 
-`K`
+`ctrl + K`
 
 </td>
 </tr>
@@ -142,8 +139,8 @@ ignorePublish: false
 <td>段落移動</td>
 <td>
 
-- 段落の先頭に移動: `A`
-- 段落の末尾に移動: `E`
+- 段落の先頭に移動: `ctrl + A`
+- 段落の末尾に移動: `ctrl + E`
 
 </td>
 </tr>
@@ -188,16 +185,16 @@ https://support.apple.com/ja-jp/HT201236
 <td>
 
 - 次のタブへ移動（/前のタブへ移動）: `ctrl + Tab`
-- 開く（/直前に閉じたタブを再度開く）: `T`
-- 閉じる（/ウィンドウを閉じる）: `W`
+- 開く（/直前に閉じたタブを再度開く）: `cmd + T`
+- 閉じる（/ウィンドウを閉じる）: `cmd + W`
 
 </td>
 </tr>
 <tr>
-<td>画面更新<br>（/パードリロード）</td>
+<td>画面更新<br>（/スーパーリロード）</td>
 <td>
 
-`R`
+`cmd + R`
 
 </td>
 </tr>
@@ -205,7 +202,7 @@ https://support.apple.com/ja-jp/HT201236
 <td>新規ウィンドウ<br>（/新規シークレットウィンドウ）</td>
 <td>
 
-`N`
+`cmd + N`
 
 </td>
 </tr>
@@ -213,7 +210,7 @@ https://support.apple.com/ja-jp/HT201236
 <td>設定画面</td>
 <td>
 
-`,`
+`cmd + ,`
 
 </td>
 </tr>
@@ -314,7 +311,7 @@ VS Codeではリポジトリ検索のショートカットが`cmd + shift + F`�
 <td>履歴画面を開く</td>
 <td>
 
-`Y`
+`cmd + Y`
 
 </td>
 </tr>
@@ -340,7 +337,7 @@ VS Codeではリポジトリ検索のショートカットが`cmd + shift + F`�
 <td>拡大/縮小</td>
 <td>
 
-- 拡大: `cmd + shift + ;`
+- 拡大: `cmd + shift + ;`（実体は`cmd + +(プラスキー)`）
 - 縮小: `cmd + -`
 - リセット: `cmd + 0`
 
@@ -529,7 +526,7 @@ Sleep, Lock, Shut Down, Log OutなどOSの機能を呼び出せます。いい�
 
 ### 2.2. オススメの設定
 
-設定画面の「Advanced > Auto-switch input Source」から「Romaji（またはEnglish）」を選択してください。これにより **Raycastを開くと自動で入力ソースがアルファベット状態になります**。基本的にRaycastは英字入力する機能がほとんどですので、これは必須級の設定です。
+設定画面の「Advanced > Auto-switch Input Source」から「Romaji（またはEnglish）」を選択してください。これにより **Raycastを開くと自動で入力ソースがアルファベット状態になります**。基本的にRaycastは英字入力する機能がほとんどですので、これは必須級の設定です。
 <img src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/ef97a7c1-7837-d521-740f-fafad479ef5a.png" width="700">
 
 ### 2.3. ブックマーク検索
