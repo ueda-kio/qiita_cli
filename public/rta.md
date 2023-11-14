@@ -13,12 +13,13 @@ organization_url_name: null
 slide: false
 ignorePublish: false
 ---
-# はじめに
-この記事は [NIJIBOX Advent Calendar 2023](https://qiita.com/advent-calendar/2023/nijibox) の1日目の記事です🌈
-
 :::note warn
 **本記事の内容は、あくまでも私の個人的な経験から得たオススメのやり方をまとめたものになります。**
 :::
+
+# はじめに
+この記事は [NIJIBOX Advent Calendar 2023](https://qiita.com/advent-calendar/2023/nijibox) の1日目の記事です🌈
+
 
 どうも。業務RTA走者の@ment_REです。
 普段は「Any%」「No Glitch」「休憩1時間を必ず取る」レギュレーションで走ってます。寒い時期は朝布団から出てタイマースタートするまでが一番の難所だと思ってます[^1]。
