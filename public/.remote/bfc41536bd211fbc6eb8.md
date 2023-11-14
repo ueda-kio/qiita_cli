@@ -7,7 +7,7 @@ tags:
   - 業務改善
   - 業務効率化
 private: true
-updated_at: '2023-11-14T10:04:19+09:00'
+updated_at: '2023-11-14T10:08:12+09:00'
 id: bfc41536bd211fbc6eb8
 organization_url_name: null
 slide: false
@@ -567,7 +567,7 @@ Raycastには標準でクリップボードヒストリー機能が搭載され�
 ![Quicklinks設定画面](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/281fd51b-73e6-c470-aec3-805af7239060.png)
 
 お好きなwebサイトを登録してRaycastから爆速検索しましょう！
-Google検索、Google画像検索、YouTube、[CanIUse](https://caniuse.com/)、[GitHub](https://github.com/search)、etc…
+Google検索、Google画像検索、YouTube、[Can I Use](https://caniuse.com/)、[GitHub](https://github.com/search)、etc…
 
 # おわりに
 
