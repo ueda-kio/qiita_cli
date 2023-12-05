@@ -6,10 +6,10 @@ tags:
   - Raycast
   - 業務改善
   - 業務効率化
-private: true
-updated_at: '2023-11-14T12:41:16+09:00'
+private: false
+updated_at: '2023-12-01T07:01:19+09:00'
 id: bfc41536bd211fbc6eb8
-organization_url_name: null
+organization_url_name: nijibox
 slide: false
 ignorePublish: false
 ---
