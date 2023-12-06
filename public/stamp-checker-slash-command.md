@@ -18,7 +18,7 @@ Slack で「完了したらリアクションして」という連絡事項系�
 
 ![連絡事項スレッド（サンプル）](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/0f44b6ee-f075-b1f7-0435-2f35b091c845.png)
 
-現時点で誰がリアクションした/していないのかを確認したいという場合、以下の構文でスラッシュコマンドを実行します。
+現時点で誰がリアクションした/していないのかを確認したいという場合、以下の構文でスラッシュコマンドを実行します。コマンドは任意に設定可能です。
 
 ```
 /checker {スレッドのurl}
@@ -53,7 +53,7 @@ https://qiita.com/anti-digital/items/9db9ee5ed2e1bd7c73c2
 ### ソースコード
 
 コンパイル前の TypeScript で掲載します。
-各ユーザーIDやSlackへ送信するメッセージは適宜変更してください。
+各ユーザーIDや Slack へ送信するメッセージは適宜変更してください。
 
 <details>
 <summary>ソースコード全文</summary>
@@ -202,7 +202,7 @@ function returnLogText(usersList: string[]) {
 - `mpim:read`
 - `search:read`
 
-導入方法の詳細は他の記事や公式にお任せしますので、ここでは簡単にまとめるのみとします。
+詳細な導入方法の手順は他の記事や公式にお任せしますので、ここでは簡単にまとめるのみとします。
 
 https://api.slack.com/start/quickstart
 
@@ -214,11 +214,11 @@ https://api.slack.com/start/quickstart
 
 ##### 1. コーディング
 
-[GAS の home](https://script.google.com/home) から新規プロジェクトを作成。コーディングする。
-clasp を利用している場合、ローカルのエディタでコーディングを行い`clasp push`でプロジェクトに反映する。
+[GAS の home](https://script.google.com/home) から新規プロジェクトを作成、コーディングします。
+clasp を利用している場合、ローカルのエディタでコーディングを行い`clasp push`でプロジェクトに反映します。
 
 ##### 2. デプロイ
-「ウェブアプリ」としてデプロイし、URLをコピーしておく。
+「ウェブアプリ」としてデプロイし、URLをコピーしておきます。
 ![image.jpeg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/cc7502e3-5e38-e3d2-3f82-a1bf8ce0c8ba.jpeg)
 ![image.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/b40a971a-45ac-7e6d-bcfc-62710ae2f86d.jpeg)
 
@@ -228,15 +228,15 @@ GAS 側でのやることは以上です。
 #### Slack App でやること
 ##### 1. App の作成
 
-[Your Apps](https://api.slack.com/apps) ページの「Create New App」からアプリを新規作成。
-「From scratch」から任意のアプリ名とインストールしたいワークスペースを選択する。
+[Your Apps](https://api.slack.com/apps) ページの「Create New App」からアプリを新規作成します。
+「From scratch」から任意のアプリ名とインストールしたいワークスペースを選択します。
 
-![スクリーンショット 2023-12-06 11.24.03.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/c4950b57-d813-6b21-3266-4ae871ddf62b.png)
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/c4950b57-d813-6b21-3266-4ae871ddf62b.png)
 
 
 ##### 2. パーミッションの設定
 
-「Features > OAuth & Permissions」画面の「Scopes > User Token Scopes」からパーミッションのスコープを設定。
+「Features > OAuth & Permissions」画面の「Scopes > User Token Scopes」からパーミッションのスコープを設定します。
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/fe26eed8-4019-91bb-68e0-68c47dbd3bea.png)
 
@@ -251,22 +251,22 @@ GAS 側でのやることは以上です。
 
 ##### 3. スラッシュコマンドの作成
 
-「Features > Slash Commands」画面の「Create New Command」からスラッシュコマンドを作成。
+「Features > Slash Commands」画面の「Create New Command」からスラッシュコマンドを作成します。
 
 ![スクリーンショット 2023-12-06 12.04.55.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/395cedbe-3b3d-a689-de21-bc24b24ecb8d.png)
 
-必要な情報を設定。
-- 「Command」に任意のコマンドを設定。ユニークであると望ましい。
-- 「Request URL」に GAS でデプロイしたURLを貼り付け
+必要な情報を設定します。
+- 「Command」に任意のコマンドを設定。ユニークであると望ましいです。
+- 「Request URL」に GAS でデプロイしたURLを貼り付けます。
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/48c7ff14-6ae5-a0aa-c276-2e4acc4652e7.png)
 
 ##### 4. Slack のワークスペースにインストール
 
-「Settings > Install App」画面の「Install to Workspace」からワークスペースにアプリをインストールする。
+「Settings > Install App」画面の「Install to Workspace」からワークスペースにアプリをインストールします。
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/7e22e085-0a37-b0e5-66df-1d5f4446b50e.png)
 
-これで Slack からスラッシュコマンドを呼び出せるようになります。
+これで Slack 内でスラッシュコマンドを呼び出せるようになります。
 
 </div>
 </details>
@@ -436,7 +436,7 @@ GAS で Slack にメンバー一覧を [`ContentService.createTextOutput`](https
 ```
 
 ### 所感
-今回初めて GAS を書いたため、諸々ベストプラクティスではない実装となっているかもしれません。改善の余地はありです。
+今回初めて GAS を書いたため、諸々ベストプラクティスではない実装となっているかもしれません。改善の余地ありです。
 - エラー時に Slack にテキストを送信するようにしているが、これがベストなのか？
 - 一度の処理で API と合計で3度もやりとりしているが、もっと通信を削減する方法はないか？
 - スラッシュコマンドの引数からスレッドurlと絵文字を切り離す処理を力技で行っているが、よりよい方法はあるのか？
