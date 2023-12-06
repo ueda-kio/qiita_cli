@@ -26,7 +26,7 @@ Slack で「完了したらリアクションして」という連絡事項系�
 
 チャンネル内のメンバーのうち、スレッドにリアクションした/していないメンバーの一覧を表示します。[エフェメラルメッセージ](https://api.slack.com/messaging/managing#ephemeral) で送信されるため、メンバーにメンションが飛ぶことはありません。
 
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/588b8d04-da00-39fa-bc69-1cbff6bcdc94.png)
+![image.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/a284f7b2-2200-5f95-c971-aeda17cdb637.jpeg)
 
 
 スラッシュコマンドの第2引数に絵文字を指定することで、その絵文字のリアクションをつけた/つけていないメンバーに絞り込むこともできます。
@@ -35,7 +35,7 @@ Slack で「完了したらリアクションして」という連絡事項系�
 /checker {スレッドのurl} {:絵文字:}
 ```
 
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/35142e60-0489-25ec-c6b5-f041af36090f.png)
+![image.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/c02f82bf-a0ed-7b5a-9bb3-3c203eb7a473.jpeg)
 
 ## 実装内容
 
@@ -59,7 +59,7 @@ https://qiita.com/anti-digital/items/9db9ee5ed2e1bd7c73c2
 <summary>ソースコード全文</summary>
 <div>
 
-```ts
+```ts:main.ts
 const SLACK_API_TOKEN = PropertiesService.getScriptProperties().getProperty('SLACK_API_TOKEN');
 if (SLACK_API_TOKEN === null) {
   Logger.log('SLACK_API_TOKEN is null.');
@@ -206,6 +206,9 @@ function returnLogText(usersList: string[]) {
 
 https://api.slack.com/start/quickstart
 
+<details>
+<summary>導入方法</summary>
+<div>
 
 #### GAS でやること
 
@@ -216,10 +219,8 @@ clasp を利用している場合、ローカルのエディタでコーディ�
 
 ##### 2. デプロイ
 「ウェブアプリ」としてデプロイし、URLをコピーしておく。
-<!-- TODO: emailにモザイク -->
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/be0a3b53-7594-5efd-3101-53f035808bf0.png)
-<!-- TODO: url -->
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/9472effe-4c07-3069-8f24-f67572010583.png)
+![image.jpeg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/cc7502e3-5e38-e3d2-3f82-a1bf8ce0c8ba.jpeg)
+![image.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/b40a971a-45ac-7e6d-bcfc-62710ae2f86d.jpeg)
 
 GAS 側でのやることは以上です。
 
@@ -267,12 +268,6 @@ GAS 側でのやることは以上です。
 
 これで Slack からスラッシュコマンドを呼び出せるようになります。
 
-<details>
-<summary>導入方法</summary>
-<div>
-
-
-
 </div>
 </details>
 
@@ -287,12 +282,12 @@ GAS 側でのやることは以上です。
 <div>
 
 slack api ページの Install App 画面からAPIトークンをコピー。
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/d86639ce-9677-6642-726c-9c22cf5b2fcb.png)
+![image.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/9b684453-a08a-a865-6f72-7509257bfcd1.jpeg)
 
 GAS のプロジェクト設定から スクリプトプロパティ を設定。
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/ee95e3ef-e803-f746-15ff-fcf17a9b51c3.png)
 
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/837b24ec-5ee3-017d-d3a2-115bc7d57f4d.png)
+![image.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1157551/f105098f-0564-6078-dcda-a95229922d5b.jpeg)
 
 </div>
 </details>
