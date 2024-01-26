@@ -1,5 +1,5 @@
 ---
-title: XPath を使って `querySelector()` よりもパワフルに html 要素を取得しよう！
+title: XPath を使って querySelector よりもパワフルに DOM からノードを取得しよう！
 tags:
   - JavaScript
 private: false
@@ -9,11 +9,18 @@ organization_url_name: null
 slide: false
 ignorePublish: false
 ---
-## はじめに
+## 1. はじめに
 
-## 結論
+これは XPath を利用して DOM からノードを取得する方法を紹介する記事です。
+最近 [XPath](https://developer.mozilla.org/ja/docs/Web/XPath) の存在を知り、「XPath を利用して `document.querySelector()` のように DOM からノード（要素）を取得したい！」と思い立ったため、その方法をまとめていきます。
 
-XPath で DOM から要素を取得する方法。配列に格納して返却します。
+:::note warn
+最近 XPath の存在を知ったばかりの拙いエンジニアによる記事です。誤りや問題のある記述がある場合はご指摘ください。
+:::
+
+## 2. 結論
+
+XPath を利用して DOM からノードを取得する関数です。取得したノードは配列に格納して返却します。
 
 ```js
 const getElementsByXPath = (xpath) => {
@@ -30,11 +37,11 @@ const elms = getElementsByXPath('//div');
 elms; // [div, div, div, ...]
 ```
 
-## XPath とは
+## 3. XPath とは
 
-### 概要
+### 3.1. 概要
 
-XPath とは XML 文書（html 含む）のさまざまなノードを指し示すことができるパス文字列のことです。
+XPath とは XML 文書（HTML 含む）のさまざまなノードを指し示すことができるパス文字列のことです。
 
 https://developer.mozilla.org/ja/docs/Web/XPath
 
@@ -42,9 +49,9 @@ https://developer.mozilla.org/ja/docs/Web/XPath
 > （中略）
 > `Document.getElementById()` や `Document.querySelectorAll()` メソッドや `Node.childNodes` プロパティ、その他の DOM コア機能に依存することなく、はるかにパワフルな方法でたどることができます。
 
-### 構文
+### 3.2. 構文
 
-html 内のノードを URL のパスのような表記で指し示します。これをロケーションパスと呼びます。
+HTML 内のノードを URL のパスのような表記で指し示します。これをロケーションパスと呼びます。
 以下は XPath の一例です。
 ```xpath
 /html/body/main/div[1]/article/header/h1
@@ -76,12 +83,17 @@ html > body > main h1
 
 これは「html の中のすべての h1 ノード」を指し示します。
 
-## XPath は CSS セレクタよりもはるかにパワフル
+### 3.3. XPath は CSS セレクタよりもはるかにパワフル
 
 ここまで CSS セレクタと比較しながら XPath をみてきましたが、XPath は CSS よりもはるかにパワフルにノードを指し示すことができます。CSS セレクタの完全上位互換と言ってもいいと思います[^2]。
+
+▼ チートシート
+
+https://devhints.io/xpath
+
 どのようなパワフルな機能があるのか、いくつか例をあげていきます。
 
-### 特定の子ノードの持つ親ノードの指定
+#### 3.3.1. 特定の子ノードを持つ親ノードの指定
 
 特定のノードを XPath で指定し、その親ノードを指定することができます。
 以下は「`"dummy-id"` という id 属性を持つ li ノードを子要素にもつ ul ノード」を指し示す XPath です。
@@ -90,7 +102,7 @@ html > body > main h1
 //ul[li[@id="dummy-id"]]
 ```
 
-これは li ノードを自身の直下にもつ ul ノードのみ対象となります。ルートノードまですべてのノードを遡るには [`ancestor`]([text](https://developer.mozilla.org/ja/docs/Web/XPath/Axes#ancestor)) という軸（Axis）を利用します。
+これは li ノードを自身の直下に持つ ul ノードのみ対象となります。ルートノードまですべてのノードを遡るには [`ancestor`]([text](https://developer.mozilla.org/ja/docs/Web/XPath/Axes#ancestor)) という軸（Axis）を利用します。
 
 以下は「`"dummy-id"` という id 属性を持つ liノードの祖先のすべての ul ノード」を指し示す XPath です。
 
@@ -98,9 +110,9 @@ html > body > main h1
 //li[@id="dummy-id"]/ancestor::ul
 ```
 
-### 特定のノードのひとつ前に隣り合うノードを指定
+#### 3.3.2. 特定のノードのひとつ前に隣り合うノードを指定
 
-「ひとつうしろに隣り合う要素」は CSS セレクタでは隣接セレクタ `+` で指定可能ですが、「ひとつ前に隣り合う要素」は CSS セレクタでは指定できません。
+「ひとつ後ろに隣り合う要素」は CSS セレクタでは隣接セレクタ `+` で指定可能ですが、「ひとつ前に隣り合う要素」は CSS セレクタでは指定できません。
 XPath では [`preceding-sibling`](https://developer.mozilla.org/ja/docs/Web/XPath/Axes#preceding-sibling) 軸を利用することで指定可能です。
 
 以下は「`"dummy-id"` という id 属性を持つ div ノードのひとつ前に隣り合う p ノード」を指し示す XPath です。
@@ -113,20 +125,22 @@ XPath では [`preceding-sibling`](https://developer.mozilla.org/ja/docs/Web/XPa
 
 まさに url のようですね。 -->
 
-### 関数
-XPath 関数と呼ばれる様々な関数が用意されており、より高度にノードを探索することができます。一覧は以下です。
+#### 3.3.3. XPath 関数
+[XPath](https://developer.mozilla.org/ja/docs/Web/XPath/Functions) 関数と呼ばれる関数が用意されており、より高度にノードを探索することができます。
 
 https://developer.mozilla.org/ja/docs/Web/XPath/Functions
 
-#### `text()`
+##### `text()`
 
 `text()` 関数は、コンテキストノードのテキストノードを指定します。
+
+以下のような HTML があるとします。
 
 ```html
 <p id="para">詳細は<a href="/">こちら</a>です。</p>
 ```
 
-このような html があったとき `text()` は `詳細は` と `です。` を指し示します。
+このとき、`text()` は「詳細は」と「です。」を指し示します。
 
 ```xpath
 //p[@id="para"]/text()
@@ -134,14 +148,12 @@ https://developer.mozilla.org/ja/docs/Web/XPath/Functions
 
 https://www.educba.com/xpath-text/
 
-（[MDN の「XPath > 関数」ページ](https://developer.mozilla.org/ja/docs/Web/XPath/Functions) に `text()` が載っていませんでした。なぜでしょう...？）
 
-
-#### `contains()`
+##### `contains()`
 
 `contains()` 関数は、第1引数の文字列に第2引数の文字列が含まれているかどうかを判定し、論理値 `true` または `false` を返します。
 
-以下は class 名に `mt-` という文字列を含んだすべての p ノードを指し示します。
+以下は class 属性に `mt-` という文字列を含んだすべての p ノードを指し示します。
 
 ```xpath
 //p[contains(@class, "mt-")]
@@ -150,36 +162,112 @@ https://www.educba.com/xpath-text/
 `text()` 関数と組み合わせることで、「特定の文字列を text ノードに持つノード」を指し示すことができます。
 
 ```html
-<p id="para">詳細は<a href="/">こちら</a>です。</p>
-<p id="para">詳細は<span>お問い合わせください。</span></p>
+<p>詳細は担当者にお問い合わせください。</p>
+<p>詳細は<a href="/">こちら</a>です。</p>
 ```
+
+以下の XPath により、上記2つの p ノードを指し示すことができます。
 
 ```xpath
-$x('//p[contains(text(), "詳細は")]')
+//p[contains(text(), "詳細は")]
 ```
 
-<details>
-<summary></summary>
+<!-- <details>
+<summary>分割された複数の text ノードを持つ場合</summary>
 <div>
 
 </div>
 </details>
 
-$x('//p[text()[contains(., "である要素の内、最初の要素だけが格納されます。")]]')
+以下のように text ノード以外のノードを含んだ p ノードを考えます。
 
+```html
+<p>XPath を使用するための主となるインターフェイスは <a href="/document">document</a> オブジェクトの <code>evaluate</code> 関数です。</p>
+```
 
-MDN はこちら。
+このとき「オブジェクトの」を含んだ p ノードを `contains()` 関数と `text()` 関数を用いて取得しようとしても、上記の p ノードは指し示すことができません。
 
-https://developer.mozilla.org/ja/docs/Web/XPath/Axes
+```xpath
+//p[contains(text(), "オブジェクトの")]
+→ 上記の p ノードは対象とならない
+```
 
-チートシートもあります。
+この理由は
+`text()` はコンテキストノードの text ノードをすべて指し示すことができますが、`contains()` の第一引数には単一の文字列のみ渡るため `text()` で得られた最初の text ノードのみが引数として渡されます。
+つまりこの例では「XPath を使用するための主となるインターフェイスは」という text ノードのみが `contains()` に渡されるため `false` 判定になります。
 
-https://devhints.io/xpath
+これを回避して複数あるすべての text ノードを `contains()`
 
-## 実行時間
-非常に雑な比較ですが、配列操作をしているため3倍くらい時間がかかります。
-なお人間には知覚できないレベルであることは間違いないですが。
+$x('//p[text()[contains(., "である要素の内、最初の要素だけが格納されます。")]]') -->
+
+https://developer.mozilla.org/ja/docs/Web/XPath/Functions/contains
+
+## 4. XPath で指し示したノードを JavaScript で取得する
+
+JavaScript でノード（要素）を取得するために `document.getElementById` や `document.querySelector` などのメソッドが用意されていますが、これらは XPath を指定できないため、別の方法を用いて取得します。いくつか方法はありますが、その中のひとつをご紹介します。
+
+:::note warn
+基本的に標準の DOM API で事足りるという前提のもと、XPath を利用したいというニッチな状況の想定です。
+:::
+
+以下の手順で取得します。
+1. XPath を [`XPathExpression`](https://developer.mozilla.org/ja/docs/Web/API/XPathExpression) オブジェクトにコンパイル
+2. [`XPathExpression.evaluate()`](https://developer.mozilla.org/ja/docs/Web/API/XPathExpression/evaluate) を実行して DOM から [`XPathResult`](https://developer.mozilla.org/ja/docs/Web/API/XPathResult) オブジェクトを取得
+3. [`XPathResult.snapshotItem()`](https://developer.mozilla.org/ja/docs/Web/API/XPathResult/snapshotItem) メソッドからノードの集合を取得
+
+#### 1. XPath を [`XPathExpression`](https://developer.mozilla.org/ja/docs/Web/API/XPathExpression) オブジェクトにコンパイル
+[`XPathEvaluator`](https://developer.mozilla.org/en-US/docs/Web/API/XPathEvaluator) インスタンスの [`XPathEvaluator.createExpression()`](https://developer.mozilla.org/en-US/docs/Web/API/XPathEvaluator/createExpression) に XPath を渡すことで、XPath を [`XPathExpression`](https://developer.mozilla.org/ja/docs/Web/API/XPathExpression) オブジェクトへとコンパイルします。
+
 ```js
+const evaluator = new XPathEvaluator();
+const expression = evaluator.createExpression('//div');
+```
+
+#### 2. [`XPathExpression.evaluate()`](https://developer.mozilla.org/ja/docs/Web/API/XPathExpression/evaluate) を実行して DOM から [`XPathResult`](https://developer.mozilla.org/ja/docs/Web/API/XPathResult) オブジェクトを取得
+
+[`XPathExpression.evaluate()`](https://developer.mozilla.org/ja/docs/Web/API/XPathExpression/evaluate) メソッドを実行して [`XPathResult`](https://developer.mozilla.org/ja/docs/Web/API/XPathResult) オブジェクトを取得します。
+ここで [`XPathExpression.evaluate()`](https://developer.mozilla.org/ja/docs/Web/API/XPathExpression/evaluate) の第2引数に `ORDERED_NODE_SNAPSHOT_TYPE` または `UNORDERED_NODE_SNAPSHOT_TYPE` を指定し、スナップショットを取得します。
+
+```js
+const result = expression.evaluate(
+  document,
+  XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, // or UNORDERED_NODE_SNAPSHOT_TYPE
+);
+```
+
+#### 3. [`XPathResult.snapshotItem()`](https://developer.mozilla.org/ja/docs/Web/API/XPathResult/snapshotItem) メソッドからノードの集合を取得
+
+スナップショットを含んだ [`XPathResult`](https://developer.mozilla.org/ja/docs/Web/API/XPathResult) オブジェクトを取得することにより、[`XPathResult.snapshotItem()`](https://developer.mozilla.org/ja/docs/Web/API/XPathResult/snapshotItem) メソッドから取得したノードを取り出すことができます。インデックスを指定することで取り出せるため、すべてのノードを取得するために [`XPathResult.snapshotLength`](https://developer.mozilla.org/ja/docs/Web/API/XPathResult/snapshotLength) の数だけループを回し、ノードを配列に格納します。
+
+```js
+[...Array(result.snapshotLength)].map((_, i) => result.snapshotItem(i));
+```
+
+これにて XPath からノードの集合を取得することができました。
+以下は汎用的にしたコードです。
+
+```js
+const getElementsByXPath = (xpath) => {
+  const evaluator = new XPathEvaluator();
+  const expression = evaluator.createExpression(xpath);
+  const result = expression.evaluate(
+    document,
+    XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+  );
+  return [...Array(result.snapshotLength)].map((_, i) => result.snapshotItem(i));
+};
+
+const elms = getElementsByXPath('//div');
+elms; // [div, div, div, ...]
+```
+
+<details>
+<summary>document.querySelectorAll との実行時間の比較</summary>
+<div>
+
+簡単な測定ではありますが、`document.querySelectorAll` と実行時間の比較をしてみました。
+配列操作をしているためか XPath の方が3倍くらい時間がかかります。
+```js:XPath での取得
 const startTime = performance.now(); // 開始時間
 const elms = getElmsFromXPath('//div');
 const endTime = performance.now(); // 終了時間
@@ -188,7 +276,7 @@ console.log(endTime - startTime);
 // 0.3000001907348633
 ```
 
-```js
+```js: document.querySelectorAll での取得
 const startTime = performance.now(); // 開始時間
 document.querySelectorAll('div');
 const endTime = performance.now(); // 終了時間
@@ -196,6 +284,17 @@ const endTime = performance.now(); // 終了時間
 console.log(endTime - startTime);
 // 0.09999990463256836
 ```
+
+「特定の text ノードをもつノードのみ取得する」「親ノードを取得する」など、より高度な条件で取得するために `filter()` や `closest()` などのメソッドを組み合わせた場合、もしかしたら XPath で取得した方が早くなる可能性もあります。
+
+いずれにせよ、この時間差は人間には知覚できないレベルであることは間違いありません。
+
+</div>
+</details>
+
+## 5. おわりに
+XPath を利用して DOM からノードを取得する方法をまとめました。
+
 
 [^1]: 「厳密には異なる」という場合はご指摘ください。
 [^2]: 「CSS セレクタでできることは XPath でもでき、XPath でできて CSS セレクタにはできないことがある」という意味です。
