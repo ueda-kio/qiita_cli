@@ -6,7 +6,7 @@ tags:
   - xpath
   - Web
 private: false
-updated_at: '2024-01-26T23:09:17+09:00'
+updated_at: '2024-01-27T15:27:38+09:00'
 id: d8d6e72ec7d565500487
 organization_url_name: null
 slide: false
@@ -67,7 +67,7 @@ HTML 内のノードを URL のパスのような表記で指し示します。�
 html > body > main > div:first-child > article > header > h1
 ```
 
-スラッシュ（`/`）が1つの場合は子孫、つまりコンテキストノードの直下にあるノードのみを指し示しますが、2つ重ねることで子孫のすべてのノードを指し示すことができます。以下はその一例です。
+スラッシュ（`/`）が1つの場合は子、つまりコンテキストノードの直下にあるノードのみを指し示しますが、2つ重ねることで子孫のすべてのノードを指し示すことができます。以下はその一例です。
 
 ```xpath
 /html/body/main//h1
