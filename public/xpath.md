@@ -63,7 +63,7 @@ HTML 内のノードを URL のパスのような表記で指し示します。�
 ```
 
 これは「html の中の body ノードの中の main ノードの中の １つ目の div ノードの中の article ノードの中の header ノードの中の h1 ノード」を指し示します。一致するノードが複数存在する場合、すべてのノードが対象となります。
-以下の CSS セレクタと同義です[^1]。
+以下の CSS セレクタとほとんど同義です[^1]。
 ```js
 html > body > main > div:first-child > article > header > h1
 ```
@@ -318,5 +318,5 @@ console.log(endTime - startTime);
 XPath を利用して DOM からノードを取得する方法をまとめました。
 `document.getElementById` や `document.querySelector` などの標準メソッドだけではどうしてもアドレッシングが難しい、という限定的な状況で輝いてくれる日が来るかもしれません。私はまだないですが。
 
-[^1]: 「厳密には異なる」という場合はご指摘ください。
+[^1]: より厳密には `/html` は CSS セレクタの `html:root` と同義となると考えられます。HTML 文書に XML が埋め込まれている場合、「ルート要素の HTML」なのか「埋め込まれた HTML」なのかで挙動が変わります。詳しくは [@think49](https://qiita.com/think49) さんに [いただいたコメント](https://qiita.com/ment_RE/items/d8d6e72ec7d565500487#comment-48697601ea016affa6d9) をご参照ください。
 [^2]: 「CSS セレクタでできることは XPath でもでき、XPath でできて CSS セレクタにはできないことがある」という意味です。
