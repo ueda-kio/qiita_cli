@@ -118,7 +118,12 @@ https://devhints.io/xpath
 
 #### 3.3.2. 特定のノードのひとつ前に隣り合うノードを指定
 
-「ひとつ後ろに隣り合う要素」は CSS セレクタでは隣接セレクタ `+` で指定可能ですが、「ひとつ前に隣り合う要素」は CSS セレクタでは指定できません。
+「ひとつ後ろに隣り合う要素」は CSS セレクタでは隣接セレクタ `+` で指定可能ですが、 「ひとつ前に隣り合う要素」は ~~CSS セレクタでは指定できません。~~
+
+:::note warn
+CSS セレクタでも`:has(+ #dummy-id)` で「ひとつ前に隣り合う要素」の指定が可能でした。[@htsign さん](https://qiita.com/htsign) に [コメントいただき](https://qiita.com/ment_RE/items/d8d6e72ec7d565500487#comment-bb07c7b3939645238373) 知りました。ありがとうございます。
+:::
+
 XPath では [`preceding-sibling`](https://developer.mozilla.org/ja/docs/Web/XPath/Axes#preceding-sibling) 軸を利用することで指定可能です。
 
 以下は「`"dummy-id"` という id 属性を持つ div ノードのひとつ前に隣り合う p ノード」を指し示す XPath です。
