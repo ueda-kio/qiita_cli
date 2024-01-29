@@ -201,15 +201,21 @@ https://www.educba.com/xpath-text/
 `text()` はコンテキストノードが持つすべてのテキストノードを指し示すことができますが、`contains()` の第一引数には単一の文字列のみ渡るため **`text()` で得られた最初のテキストノードのみが引数として渡されます**。
 つまりこの例では「XPath を使用するための主となるインターフェイスは」というテキストノードのみが `contains()` に渡されるため `false` 判定となり上記の p ノードは対象外となります。
 
-これを回避してコンテキストノードが持つ複数あるすべてのテキストノードを `contains()` で判定するために、以下のような XPath を考えました。
+これを回避してコンテキストノードが持つ複数あるすべてのノードを `contains()` で判定するためには以下の XPath を利用します。
+（[@htsign さん](https://qiita.com/htsign) に [いただいた方法](https://qiita.com/ment_RE/items/d8d6e72ec7d565500487#comment-bb07c7b3939645238373) を載せております。ありがとうございます。）
 
 ```xpath
-//p[text()[contains(., "オブジェクトの")]]
+//p[[contains(., "オブジェクトの")]]
 ```
 
-`//p[text()]` で p ノードのテキストノードすべてを対象とし、[self 軸（`.`）](https://developer.mozilla.org/ja/docs/Web/XPath/Axes#self) を利用してすべてのテキストノードに対して `contains()` で判定しています。
+p ノードの子ノードすべてを対象とし、[self 軸（`.`）](https://developer.mozilla.org/ja/docs/Web/XPath/Axes#self) を利用してすべてのノードに対して `contains()` で判定しています。これで特定の文字列を子ノードに持つノードを指し示すことができます。
+子ノードは `contains()` に渡される際に暗黙的に型変換されますが、[`string()`](https://developer.mozilla.org/ja/docs/Web/XPath/Functions/string) 関数を用いて明示的に string 型へと変換してもよいと思います。
 
-なおこの XPath は自作なので、よりよい方法がありましたらご指摘いただけるとうれしいです。
+```xpath
+//p[[contains(string(.), "オブジェクトの")]]
+```
+
+~~なおこの XPath は自作なので、よりよい方法がありましたらご指摘いただけるとうれしいです。~~
 
 </div>
 </details>
