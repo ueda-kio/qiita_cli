@@ -28,11 +28,12 @@ XPath を利用して DOM からノードを取得する関数です。取得し
 
 ```js
 const getNodesByXPath = (xpath) => {
-  const evaluator = new XPathEvaluator();
-  const expression = evaluator.createExpression(xpath);
-  const result = expression.evaluate(
+  const result = document.evaluate(
+    xpath,
     document,
+    null,
     XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+    null
   );
   return [...Array(result.snapshotLength)].map((_, i) => result.snapshotItem(i));
 };
@@ -226,31 +227,25 @@ JavaScript でノード（要素）を取得するために `document.getElement
 :::
 
 以下の手順で取得します。
-1. XPath を [`XPathExpression`](https://developer.mozilla.org/ja/docs/Web/API/XPathExpression) オブジェクトにコンパイル
-2. [`XPathExpression.evaluate()`](https://developer.mozilla.org/ja/docs/Web/API/XPathExpression/evaluate) を実行して DOM から [`XPathResult`](https://developer.mozilla.org/ja/docs/Web/API/XPathResult) オブジェクトを取得
-3. [`XPathResult.snapshotItem()`](https://developer.mozilla.org/ja/docs/Web/API/XPathResult/snapshotItem) メソッドからノードの集合を取得
+1. [`document.evaluate()`](https://developer.mozilla.org/ja/docs/Web/API/Document/evaluate) を実行して DOM から [`XPathResult`](https://developer.mozilla.org/ja/docs/Web/API/XPathResult) オブジェクトを取得
+2. [`XPathResult.snapshotItem()`](https://developer.mozilla.org/ja/docs/Web/API/XPathResult/snapshotItem) メソッドからノードの集合を取得
 
-#### 1. XPath を [`XPathExpression`](https://developer.mozilla.org/ja/docs/Web/API/XPathExpression) オブジェクトにコンパイル
-[`XPathEvaluator`](https://developer.mozilla.org/en-US/docs/Web/API/XPathEvaluator) インスタンスの [`XPathEvaluator.createExpression()`](https://developer.mozilla.org/en-US/docs/Web/API/XPathEvaluator/createExpression) に XPath を渡すことで、XPath を [`XPathExpression`](https://developer.mozilla.org/ja/docs/Web/API/XPathExpression) オブジェクトへとコンパイルします。
+#### 1. [`document.evaluate()`](https://developer.mozilla.org/ja/docs/Web/API/Document/evaluate) を実行して DOM から [`XPathResult`](https://developer.mozilla.org/ja/docs/Web/API/XPathResult) オブジェクトを取得
 
-```js
-const evaluator = new XPathEvaluator();
-const expression = evaluator.createExpression('//div');
-```
-
-#### 2. [`XPathExpression.evaluate()`](https://developer.mozilla.org/ja/docs/Web/API/XPathExpression/evaluate) を実行して DOM から [`XPathResult`](https://developer.mozilla.org/ja/docs/Web/API/XPathResult) オブジェクトを取得
-
-[`XPathExpression.evaluate()`](https://developer.mozilla.org/ja/docs/Web/API/XPathExpression/evaluate) メソッドを実行して [`XPathResult`](https://developer.mozilla.org/ja/docs/Web/API/XPathResult) オブジェクトを取得します。
-ここで [`XPathExpression.evaluate()`](https://developer.mozilla.org/ja/docs/Web/API/XPathExpression/evaluate) の第2引数に `ORDERED_NODE_SNAPSHOT_TYPE` または `UNORDERED_NODE_SNAPSHOT_TYPE` を指定し、スナップショットを取得します。
+[`document.evaluate()`](https://developer.mozilla.org/ja/docs/Web/API/Document/evaluate) メソッドを実行して [`XPathResult`](https://developer.mozilla.org/ja/docs/Web/API/XPathResult) オブジェクトを取得します。
+第1引数に XPath、第2引数にコンテキストノードとして `document` を指定します。特に、第4引数（`resultType`）に `ORDERED_NODE_SNAPSHOT_TYPE` または `UNORDERED_NODE_SNAPSHOT_TYPE` を指定することで、スナップショットを取得します。
 
 ```js
-const result = expression.evaluate(
+const result = document.evaluate(
+  xpath,
   document,
+  null,
   XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, // or UNORDERED_NODE_SNAPSHOT_TYPE
+  null
 );
 ```
 
-#### 3. [`XPathResult.snapshotItem()`](https://developer.mozilla.org/ja/docs/Web/API/XPathResult/snapshotItem) メソッドからノードの集合を取得
+#### 2. [`XPathResult.snapshotItem()`](https://developer.mozilla.org/ja/docs/Web/API/XPathResult/snapshotItem) メソッドからノードの集合を取得
 
 スナップショットを含んだ [`XPathResult`](https://developer.mozilla.org/ja/docs/Web/API/XPathResult) オブジェクトを取得することにより、[`XPathResult.snapshotItem()`](https://developer.mozilla.org/ja/docs/Web/API/XPathResult/snapshotItem) メソッドから取得したノードを取り出すことができます。インデックスを指定することで取り出せるため、すべてのノードを取得するために [`XPathResult.snapshotLength`](https://developer.mozilla.org/ja/docs/Web/API/XPathResult/snapshotLength) の数だけループを回し、ノードを配列に格納します。
 
@@ -263,11 +258,12 @@ const result = expression.evaluate(
 
 ```js
 const getNodesByXPath = (xpath) => {
-  const evaluator = new XPathEvaluator();
-  const expression = evaluator.createExpression(xpath);
-  const result = expression.evaluate(
+  const result = document.evaluate(
+    xpath,
     document,
+    null,
     XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+    null
   );
   return [...Array(result.snapshotLength)].map((_, i) => result.snapshotItem(i));
 };
