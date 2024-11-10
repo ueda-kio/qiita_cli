@@ -78,7 +78,7 @@ common.css を含む古いスタイルをすべて `legacy` レイヤーに格�
 /* ↓ common.css ↓ */
 @layer legacy {
   html body div#mainContents div.container p {
-    font-size: 14px;
+    font-size: 14px; /* 詳細度では勝っているがレイヤーの優先度で負け */
   }
   ...
 }
@@ -86,17 +86,96 @@ common.css を含む古いスタイルをすべて `legacy` レイヤーに格�
 /* ↓ modern.css ↓ */
 @layer modern {
   .c-text {
-    font-size: 16px; /* こちらが勝つ */
+    font-size: 16px; /* 勝ち */
   }
   ...
 }
 ```
 
-これで common.css のムダに高い詳細度を意識することなく低い詳細度のまま新規スタイルを実装できます！
+これで common.css のムダに高い詳細度を意識することなく低い詳細度のまま新規スタイルを実装できます。
 
 ## common.css を編集することなくレイヤーに割り当てる
-common.css は往々にして修正を加えてはいけないことが多いです。歴史の長いサイトのエンハンスであれば尚更すでに価値を生み出している既存のファイルを修正することは困難で、ディレクターやプランナーなど様々なステークホルダーにリファクタリングの意義と費用対効果を説明する必要があり、合意を得ることは難しい印象です。
-そのため common.css には直接の変更を加えることなく、その中身のスタイル群を `legacy` レイヤーに割り当てる方法を考えます。
+common.css は往々にして修正を加えられないことが多いです。歴史の長いサイトのエンハンスであれば尚更すでに価値を生み出している既存のファイルを修正することは困難で、ディレクターやプランナーなど様々なステークホルダーにリファクタリングの意義と費用対効果を説明する必要があり、合意を得ることは難しい印象です。
+
+### common.css を修正する方法
+common.css を修正してよい場合は以下のようにします。
+
+1. レイヤーの優先順を指定する
+2. 読み込まれている全ての CSS ファイルをそれぞれレイヤーに割り当てる
+
+#### 1. レイヤーの優先順を指定する
+
+CSSファイルが読み込まれるより前段でレイヤーの優先順を指定する必要があります。これは layer.css のような CSS ファイルを用意して読み込ませるか、HTML の head 要素などに直接インラインスタイルで記述してもよいと思います。
+
+```css:layer.css
+@layer legacy, modern;
+```
+
+```html:layer.cssを読み込む場合
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="layer.css"> <!-- 他のCSSファイルよりも前段で読み込む -->
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="modern.css">
+  <!-- ... -->
+</head>
+```
+
+```html:インラインスタイルでレイヤーを指定する場合
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* 他のCSSファイルよりも前段で記述する */
+    @layer legacy, modern;
+  </style>
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="modern.css">
+  <!-- ... -->
+</head>
+```
+
+#### 2. 読み込まれている全ての CSS ファイルをそれぞれレイヤーに割り当てる
+
+common.css を以下のように修正します。
+
+```css:common.css - before
+html body div#mainContents div.container p {
+  font-size: 14px;
+}
+...
+```
+
+```css:common.css - after
+@layer legacy {
+  html body div#mainContents div.container p {
+    font-size: 14px;
+  }
+  ...
+}
+```
+
+common.css よりも優先度を高めたい CSS ファイルはすべて legacy レイヤーよりも優先度の高いレイヤーに割り当てたうえでスタイルを実装します。
+
+```css:modern.css
+@layer modern {
+  .c-text {
+    font-size: 16px;
+  }
+  ...
+}
+```
+
+:::note info
+どのレイヤーにも割り当てられていないレイヤー外のスタイルはすべてのレイヤーよりも優先度が高いため、単に common.css の優先度を下げたいだけならばその他の CSS ファイルはレイヤーに割り当てなくとも目的は達成できます（[参考 - MDN](https://developer.mozilla.org/ja/docs/Web/CSS/@layer#:~:text=%E3%83%AC%E3%82%A4%E3%83%A4%E3%83%BC%E3%81%AE%E5%A4%96%E3%81%A7%E5%AE%A3%E8%A8%80%E3%81%95%E3%82%8C%E3%81%9F%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB%E3%81%AF%E3%80%81%E3%83%AC%E3%82%A4%E3%83%A4%E3%83%BC%E3%81%AE%E4%B8%AD%E3%81%A7%E5%AE%A3%E8%A8%80%E3%81%95%E3%82%8C%E3%81%9F%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB%E3%82%88%E3%82%8A%E3%82%82%E5%84%AA%E5%85%88%E3%81%95%E3%82%8C%E3%82%8B%E3%81%A8%E3%81%84%E3%81%86%E3%81%93%E3%81%A8%E3%81%A7%E3%81%99%E3%80%82)）。
+:::
+
+### common.css を修正しない方法
+
+前述の通り大ベテランの common.css に修正を加えることがプロダクト的に難しいという場合は、common.css の中身に修正を加えることなく `legacy` レイヤーに割り当てる方法を考えます。
 
 
 、工夫が必要です。すべてのCSSファイルを`@import`しつつレイヤー指定することで、common.css自体を触ることなくレイヤー化することが可能です。以下のように記述することで、レイヤーを導入できます。
