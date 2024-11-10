@@ -1,7 +1,9 @@
 ---
 title: 古くてデカくて詳細度の高い common.css を倒す
 tags:
+  - 'HTML'
   - 'CSS'
+  - 'Web'
 private: true
 updated_at: ''
 id: null
@@ -24,7 +26,7 @@ CSSのカスケードレイヤーを活用して、詳細度が高いCSSファ�
 
 古くて大きいCSSファイルとは、歴史のあるウェブサイトで使用されるスタイルシートのひとつで、リリース当初から多くのスタイルが追加されてきました。こういったファイルは「common.css」のようなファイル名がつけられていることが多く、一昔前まではCSS設計という考え方がなかったため、保守性が低いことが一般的です。その結果、詳細度が非常に高くなっていることが多いです。
 
-## なにがこまるの？
+## なにが困るの？
 新たなUIを実装する際、これらの古いCSSが邪魔をしてくることがよくあります。たとえば common.css に以下のようなスタイルが記述されているとします。
 
 ```css:common.css
@@ -95,7 +97,7 @@ common.css を含む古いスタイルをすべて `legacy` レイヤーに格�
 これで common.css のムダに高い詳細度を意識することなく低い詳細度のまま新規スタイルを実装できます。
 
 ## common.css を編集することなくレイヤーに割り当てる
-common.css は往々にして修正を加えられないことが多いです。歴史の長いサイトのエンハンスであれば尚更すでに価値を生み出している既存のファイルを修正することは困難で、ディレクターやプランナーなど様々なステークホルダーにリファクタリングの意義と費用対効果を説明する必要があり、合意を得ることは難しい印象です。
+common.cssは往々にして修正が難しいことが多いです。特に歴史のあるウェブサイトのエンハンスにおいては、既に価値を生み出している既存のファイルを修正することは困難であり、ディレクターやプランナーなどの様々なステークホルダーにリファクタリングの意義と費用対効果を説明する必要があります。そのため、合意を得ることは難しい印象です。
 
 ### common.css を修正する方法
 common.css を修正してよい場合は以下のようにします。
@@ -175,20 +177,76 @@ common.css よりも優先度を高めたい CSS ファイルはすべて legacy
 
 ### common.css を修正しない方法
 
-前述の通り大ベテランの common.css に修正を加えることがプロダクト的に難しいという場合は、common.css の中身に修正を加えることなく `legacy` レイヤーに割り当てる方法を考えます。
+前述の通り大ベテランの common.css に修正を加えることがプロダクト的に難しいという場合は、その中身に修正を加えることなく `legacy` レイヤーに割り当てる方法を考えます。
 
+スタイルをレイヤーに割り当てる方法はレイヤーブロック内にスタイルを記述する以外に、**[`@import`](https://developer.mozilla.org/ja/docs/Web/CSS/@import) でスタイルシートをインポートしつつその CSS ファイル全体を指定のレイヤーに割り当てる方法** があります。
 
-、工夫が必要です。すべてのCSSファイルを`@import`しつつレイヤー指定することで、common.css自体を触ることなくレイヤー化することが可能です。以下のように記述することで、レイヤーを導入できます。
+https://developer.mozilla.org/ja/docs/Web/CSS/@import
 
-```css
-// import.css
-@layer legacy, component, page;
+`@import` はスタイルシートから他のスタイルシートを読み込むアットルールですが、インポートの際にファイル全体を特定のレイヤーに割り当てることができます。
 
-@import url('./style_legacy.css') layer(legacy);
-@import url('./ab.css') layer(page);
+```css:構文
+@import "common.css" layer(legacy);
 ```
 
+レイヤーの優先順位の定義はインポートするより前段で行う必要があります。また、HTML の `link` 要素で common.css を読み込んでいると、`legacy` レイヤーに割り当てられた common.css とそうでない common.css を重複して読み込むことになってしまうため、`@import` のみで読み込むようにします。
+
+```html:common.css は @import のみで読み込む
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    @layer legacy, modern;
+    @import "common.css" layer(legacy);
+  </style>
+  <!-- <link rel="stylesheet" href="common.css"> --> <!-- link 要素での読み込みは削除する -->
+  <link rel="stylesheet" href="modern.css">
+  <!-- ... -->
+</head>
+```
+
+common.css 以外のすべての CSS ファイルも `@import` で読み込むようにすると管理が楽になりつつ、CSS ファイル側で逐一 `layer` を指定する必要がなく読み込む画面側にレイヤーを指定する責務を任せることができます。
+
+```css:layer.css
+@layer legacy, modern;
+
+@import "common.css" layer(legacy);
+@import "modern.css" layer(modern);
+```
+
+```html:link 要素で読み込むファイルは layer.css のみ
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="layer.css">
+  <!-- ... -->
+</head>
+```
+
+
 このようにして、common.cssのスタイルをそのままにしておきながら、新たなスタイルを適用できます。これにより、保守性が向上し、開発者は新しいUIに集中しやすくなります。
+
+:::note info
+いわゆる reset.css も簡単に上書きできるように優先度を下げたい CSS であり、また全画面に共通するコンポーネントを components.css などのファイルで管理している場合これも画面固有のスタイルで簡単に上書きしたいため優先度を下げておきたいでしょう。
+このように common.css ファイル以外にも優先度を管理したいというモチベーションは生まれやすいため、すべてのファイルをレイヤーに割り当てることを推奨します。
+
+```css:e.g. layer.css
+/* 優先順: 1.画面固有, 2.コンポーネント, 3.reset.css など, 4.common.css など */
+@layer legacy, base, component, page;
+
+@import "common1.css" layer(legacy);
+@import "common2.css" layer(legacy);
+
+@import "reset.css" layer(base);
+@import "fonts.css" layer(base);
+
+@import "components.css" layer(component);
+
+@import "top_page.css" layer(page);
+```
+:::
 
 # まとめ
 古くてデカくて詳細度の高いcommon.cssは、ウェブ開発において避けがたい問題のひとつですが、カスケードレイヤーを利用することで効果的に管理できます。レイヤーを使うことで、古いスタイルに影響を受けることなく、自由に新しいスタイルを追加できるようになります。これにより、開発の効率が向上し、保守性も高まります。
