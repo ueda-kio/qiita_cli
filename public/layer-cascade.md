@@ -5,8 +5,8 @@ tags:
   - CSS
   - Web
 private: true
-updated_at: ''
-id: null
+updated_at: '2024-11-10T20:59:09+09:00'
+id: 7d4bb4123f50dd6c2bd7
 organization_url_name: null
 slide: false
 ignorePublish: false
