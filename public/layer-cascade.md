@@ -5,15 +5,20 @@ tags:
   - CSS
   - Web
 private: true
-updated_at: '2024-11-10T20:59:09+09:00'
-id: 7d4bb4123f50dd6c2bd7
+updated_at: '2024-11-11T09:53:37+09:00'
+id: 117e61ba75f74465bd89
 organization_url_name: null
 slide: false
 ignorePublish: false
 ---
 # はじめに
+## この記事はなに？
+[詳細度](https://developer.mozilla.org/ja/docs/Web/CSS/Specificity) が高い CSS ファイルに対して、[カスケードレイヤー](https://developer.mozilla.org/ja/docs/Web/CSS/@layer) を活用してスタイルの優先度を下げることで、新しいスタイルを高い保守性で実装できる方法を提案する記事です。
 
-[カスケードレイヤー](https://developer.mozilla.org/ja/docs/Web/CSS/@layer) を活用して [詳細度](https://developer.mozilla.org/ja/docs/Web/CSS/Specificity) が高い CSS ファイルを気にせずに新しいスタイルを適用できる方法を提案します。
+
+## 書かないこと
+- カスケードレイヤーの詳細な内部実装
+- いわゆるモダンな技術のナレッジ
 
 ## 対象読者
 
@@ -23,8 +28,9 @@ ignorePublish: false
 # 「古くてデカくて詳細度の高い common.css」とは？
 歴史のあるウェブサイトを長年支えている古い CSS ファイルのことです。[CSS 設計](https://developer.mozilla.org/ja/docs/Learn/CSS/Building_blocks/Organizing) という考え方が普及する前の時代に作成された CSS ファイルは、往々にして詳細度が高いセレクターが見受けられ保守性が低くなっており、記述されている量も多くファイルサイズも大きくなりがちです。また、このようなファイルは common.css という命名がなされていることが多いため（筆者の主観です）、この記事ではこのような CSS ファイルを「古くてデカくて詳細度の高い common.css」と呼称します。
 
-:::note alert
-このようなファイルのことを卑下するつもりはありません。長年の運用によりこれらの CSS ファイルは多くのユーザーに価値を提供してきましたが、時代の変化に伴い保守性や拡張性の観点から見直しが必要になることがあるのも事実です。
+:::note warn
+このようなファイルのことを批判するつもりはありません。
+長年の運用によりこれらの CSS ファイルは多くのユーザーに価値を提供してきました。しかし時代の変化に伴い保守性や拡張性の観点から見直しが必要になることがあるのも事実です。
 :::
 
 ## なにが困るの？
@@ -262,6 +268,7 @@ common.css 以外のすべての CSS ファイルも `@import` で読み込む�
 
 # まとめ
 詳細度とは別の概念でスタイルの優先度を決定するカスケードレイヤーという機能の登場により新たな CSS 設計が生まれるだけでなく、特に古くからある保守性の低い CSS を管理しやすくなったのではないかと考えています。さらにこの記事では当該ファイルを直接修正することなくその恩恵を受ける方法を考えていきました。
+
 もし common.css に日々悩まされている方がいらっしゃいましたら、こちらの方法をぜひご検討ください。
 
 [^1]: [Baseline \(互換性\) - MDN Web Docs 用語集](https://developer.mozilla.org/ja/docs/Glossary/Baseline/Compatibility) 参照
