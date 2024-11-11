@@ -1,4 +1,7 @@
 # Qiita CLI
+## 公式 README
+https://github.com/increments/qiita-cli
+
 ## プレビュー起動
 URL: http://localhost:8888
 ```shell
